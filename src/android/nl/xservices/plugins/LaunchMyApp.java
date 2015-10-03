@@ -12,6 +12,15 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Locale;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import android.app.IntentService;
+import android.content.ContentResolver;
+import android.net.Uri;
+import android.provider.MediaStore;
+
 
 public class LaunchMyApp extends CordovaPlugin {
 
@@ -50,10 +59,10 @@ public class LaunchMyApp extends CordovaPlugin {
             	String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
 		    	if (sharedText != null) {webView.loadUrl("javascript:handleNewIntent('sharedtext', '" + sharedText + "');");}
         } else if (type.startsWith("image/")) {
-                Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
+                String imageUri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
     			if (imageUri != null) {webView.loadUrl("javascript:handleNewIntent('singleimage', '" + imageUri + "');");}
         } else if (type.startsWith("video/")) {
-                Uri videoUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
+                String videoUri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
     			if (videoUri != null) {webView.loadUrl("javascript:handleNewIntent('singlevideo', '" + videoUri + "');");}
         }
     } else if (Intent.ACTION_SEND_MULTIPLE.equals(action) && type != null) {
