@@ -1,10 +1,10 @@
 (function () {
     "use strict";
 
-  var remainingAttempts = 10;
+    var remainingAttempts = 10;
 
-  function waitForAndCallHandlerFunction(url) {
-    if (typeof window.handleOpenURL === "function") {
+  function waitForAndCallHandlerFunction2(itype, url) {
+    if (typeof window.handleNewIntent === "function") {
       // Clear the intent when we have a handler
       cordova.exec(
           null,
@@ -13,20 +13,22 @@
           "clearIntent",
           []);
 
-      window.handleOpenURL(url);
+      window.handleNewIntent(itype, url);
     } else if (remainingAttempts-- > 0) {
-      setTimeout(function(){waitForAndCallHandlerFunction(url);}, 500);
+      setTimeout(function(){waitForAndCallHandlerFunction2(itype ,url);}, 500);
     }
   }
 
-  function triggerOpenURL() {
+  function triggerShareOpenURL() {
     cordova.exec(
-        waitForAndCallHandlerFunction,
+        waitForAndCallHandlerFunction2,
         null,
         "LaunchMyApp",
         "checkIntent",
         []);
   }
 
-  document.addEventListener("deviceready", triggerOpenURL, false);
+
+ 
+  document.addEventListener("deviceready", triggerShareOpenURL, false);
 }());
