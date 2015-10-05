@@ -57,7 +57,7 @@ public class LaunchMyApp extends CordovaActivity
         // Handle other intents, such as being started from the home screen
     }
     }
-}
+
 
   @Override
   public void onNewIntent(Intent intent) {
