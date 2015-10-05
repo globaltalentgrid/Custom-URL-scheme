@@ -22,6 +22,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 
 import android.os.Bundle;
+import android.webkit.WebView;
 
   
 public class LaunchMyApp extends CordovaActivity
