@@ -22,7 +22,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 
 
-public class LaunchMyApp extends CordovaPlugin {
+public class LaunchMyApp2 extends CordovaPlugin {
 
   private static final String ACTION_CHECKINTENT = "checkIntent";
   private static final String ACTION_CLEARINTENT = "clearIntent";
