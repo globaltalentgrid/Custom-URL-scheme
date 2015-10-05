@@ -37,21 +37,21 @@ public class LaunchMyApp extends CordovaActivity
     if (Intent.ACTION_SEND.equals(action) && type != null) {
         if ("text/plain".equals(type)) {
             	String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
-		    	if (sharedText != null) {webView.loadUrl("javascript:handleNewIntent('sharedtext', '" + sharedText + "');");}
+		    	if (sharedText != null) {this.webView.loadUrl("javascript:handleNewIntent('sharedtext', '" + sharedText + "');");}
         } else if (type.startsWith("image/")) {
                  Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
-    			if (imageUri != null) {webView.loadUrl("javascript:handleNewIntent('singleimage', '" + imageUri + "');");}
+    			if (imageUri != null) {this.webView.loadUrl("javascript:handleNewIntent('singleimage', '" + imageUri + "');");}
         } else if (type.startsWith("video/")) {
                 Uri videoUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
-    			if (videoUri != null) {webView.loadUrl("javascript:handleNewIntent('singlevideo', '" + videoUri + "');");}
+    			if (videoUri != null) {this.webView.loadUrl("javascript:handleNewIntent('singlevideo', '" + videoUri + "');");}
         }
     } else if (Intent.ACTION_SEND_MULTIPLE.equals(action) && type != null) {
         if (type.startsWith("image/")) {
                 ArrayList<Uri> imageUris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
-			    if (imageUris != null) {webView.loadUrl("javascript:handleNewIntent('multipleimages', '" + imageUris + "');");}
+			    if (imageUris != null) {this.webView.loadUrl("javascript:handleNewIntent('multipleimages', '" + imageUris + "');");}
         } else if (type.startsWith("video/")) {
 			    ArrayList<Uri> videoUris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
-			    if (videoUris != null) {webView.loadUrl("javascript:handleNewIntent('multiplevideos', '" + videoUris + "');");}
+			    if (videoUris != null) {this.webView.loadUrl("javascript:handleNewIntent('multiplevideos', '" + videoUris + "');");}
         }
     } else {
         // Handle other intents, such as being started from the home screen
@@ -68,21 +68,21 @@ public class LaunchMyApp extends CordovaActivity
     if (Intent.ACTION_SEND.equals(action) && type != null) {
         if ("text/plain".equals(type)) {
             	String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
-		    	if (sharedText != null) {webView.loadUrl("javascript:handleNewIntent('sharedtext', '" + sharedText + "');");}
+		    	if (sharedText != null) {this.webView.loadUrl("javascript:handleNewIntent('sharedtext', '" + sharedText + "');");}
         } else if (type.startsWith("image/")) {
                  Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
-    			if (imageUri != null) {webView.loadUrl("javascript:handleNewIntent('singleimage', '" + imageUri + "');");}
+    			if (imageUri != null) {this.webView.loadUrl("javascript:handleNewIntent('singleimage', '" + imageUri + "');");}
         } else if (type.startsWith("video/")) {
                 Uri videoUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
-    			if (videoUri != null) {webView.loadUrl("javascript:handleNewIntent('singlevideo', '" + videoUri + "');");}
+    			if (videoUri != null) {this.webView.loadUrl("javascript:handleNewIntent('singlevideo', '" + videoUri + "');");}
         }
     } else if (Intent.ACTION_SEND_MULTIPLE.equals(action) && type != null) {
         if (type.startsWith("image/")) {
                 ArrayList<Uri> imageUris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
-			    if (imageUris != null) {webView.loadUrl("javascript:handleNewIntent('multipleimages', '" + imageUris + "');");}
+			    if (imageUris != null) {this.webView.loadUrl("javascript:handleNewIntent('multipleimages', '" + imageUris + "');");}
         } else if (type.startsWith("video/")) {
 			    ArrayList<Uri> videoUris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
-			    if (videoUris != null) {webView.loadUrl("javascript:handleNewIntent('multiplevideos', '" + videoUris + "');");}
+			    if (videoUris != null) {this.webView.loadUrl("javascript:handleNewIntent('multiplevideos', '" + videoUris + "');");}
         }
     } else {
         // Handle other intents, such as being started from the home screen
