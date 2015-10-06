@@ -3,13 +3,13 @@
 
     var remainingAttempts = 10;
 
-  function waitForAndCallHandlerFunction2(itype, url) {
-    if (typeof window.handleNewIntent === "function") {
-        window.handleNewIntent(itype, url);
+  function waitForAndCallHandlerFunction2(idata) {
+    if (typeof window.handleNewIntentINIT === "function") {
+        window.handleNewIntentINIT(idata);
       // Clear the intent when we have a handler
       //cordova.exec(null, null, "LaunchMyApp", "clearIntent", []);
     } else if (remainingAttempts-- > 0) {
-      setTimeout(function(){waitForAndCallHandlerFunction2(itype ,url);}, 500);
+      setTimeout(function(){waitForAndCallHandlerFunction2(idata);}, 500);
     }
   }
 
