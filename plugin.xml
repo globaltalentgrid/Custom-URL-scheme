@@ -2,7 +2,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
         id="cordova.plugin.sharewithphonegap.gtg"
-        version="0.0.10">
+        version="0.0.11">
 
   <name>Share With Phonegap</name>
 
@@ -38,18 +38,11 @@
     <config-file target="AndroidManifest.xml" parent="/*/application/activity">
         <intent-filter>
           <action android:name="android.intent.action.SEND" />
+          <action android:name="android.intent.action.SEND_MULTIPLE" />
           <category android:name="android.intent.category.DEFAULT" />
           <data android:mimeType="text/plain" />
-        </intent-filter>
-        <intent-filter>
-          <action android:name="android.intent.action.SEND" />
-          <category android:name="android.intent.category.DEFAULT" />
-          <data android:mimeType="video/*" />
-        </intent-filter>
-        <intent-filter>
-          <action android:name="android.intent.action.SEND" />
-          <category android:name="android.intent.category.DEFAULT" />
           <data android:mimeType="image/*" />
+          <data android:mimeType="video/*" />
         </intent-filter>
   </config-file>
   </platform>
