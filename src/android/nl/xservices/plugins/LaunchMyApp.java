@@ -24,9 +24,32 @@ import android.provider.MediaStore;
 import android.os.Bundle;
 import android.webkit.WebView;
 
-  
-public class LaunchMyApp extends CordovaActivity
-{
+public class LaunchMyApp extends CordovaPlugin {
+
+  private static final String ACTION_CHECKINTENT = "checkIntent";
+  private static final String ACTION_CLEARINTENT = "clearIntent";
+
+  @Override
+  public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+    if (ACTION_CLEARINTENT.equalsIgnoreCase(action)) {
+      final Intent intent = ((CordovaActivity) this.webView.getContext()).getIntent();
+      //intent.setData(null);
+      return true;
+    } else if (ACTION_CHECKINTENT.equalsIgnoreCase(action)) {
+      final Intent intent = ((CordovaActivity) this.webView.getContext()).getIntent();
+      final String intentString = intent.getDataString();
+      if (intentString != null && intent.getScheme() != null) {
+        callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, intent.getDataString()));
+      } else {
+        callbackContext.error("App was not started via the launchmyapp URL scheme. Ignoring this errorcallback is the best approach.");
+      }
+      return true;
+    } else {
+      callbackContext.error("This plugin only responds to the " + ACTION_CHECKINTENT + " action.");
+      return false;
+    }
+  }
+
       @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,21 +61,21 @@ public class LaunchMyApp extends CordovaActivity
     if (Intent.ACTION_SEND.equals(action) && type != null) {
         if ("text/plain".equals(type)) {
             	String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
-		    	if (sharedText != null) {loadUrl("javascript:handleNewIntent('sharedtext', '" + sharedText + "');");}
+		    	if (sharedText != null) {webView.loadUrl("javascript:handleNewIntent('sharedtext', '" + sharedText + "');");}
         } else if (type.startsWith("image/")) {
                  Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
-    			if (imageUri != null) {loadUrl("javascript:handleNewIntent('singleimage', '" + imageUri + "');");}
+    			if (imageUri != null) {webView.loadUrl("javascript:handleNewIntent('singleimage', '" + imageUri + "');");}
         } else if (type.startsWith("video/")) {
                 Uri videoUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
-    			if (videoUri != null) {loadUrl("javascript:handleNewIntent('singlevideo', '" + videoUri + "');");}
+    			if (videoUri != null) {webView.loadUrl("javascript:handleNewIntent('singlevideo', '" + videoUri + "');");}
         }
     } else if (Intent.ACTION_SEND_MULTIPLE.equals(action) && type != null) {
         if (type.startsWith("image/")) {
                 ArrayList<Uri> imageUris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
-			    if (imageUris != null) {loadUrl("javascript:handleNewIntent('multipleimages', '" + imageUris + "');");}
+			    if (imageUris != null) {webView.loadUrl("javascript:handleNewIntent('multipleimages', '" + imageUris + "');");}
         } else if (type.startsWith("video/")) {
 			    ArrayList<Uri> videoUris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
-			    if (videoUris != null) {loadUrl("javascript:handleNewIntent('multiplevideos', '" + videoUris + "');");}
+			    if (videoUris != null) {webView.loadUrl("javascript:handleNewIntent('multiplevideos', '" + videoUris + "');");}
         }
     } else {
         // Handle other intents, such as being started from the home screen
@@ -69,21 +92,21 @@ public class LaunchMyApp extends CordovaActivity
     if (Intent.ACTION_SEND.equals(action) && type != null) {
         if ("text/plain".equals(type)) {
             	String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
-		    	if (sharedText != null) {loadUrl("javascript:handleNewIntent('sharedtext', '" + sharedText + "');");}
+		    	if (sharedText != null) {webView.loadUrl("javascript:handleNewIntent('sharedtext', '" + sharedText + "');");}
         } else if (type.startsWith("image/")) {
                  Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
-    			if (imageUri != null) {loadUrl("javascript:handleNewIntent('singleimage', '" + imageUri + "');");}
+    			if (imageUri != null) {webView.loadUrl("javascript:handleNewIntent('singleimage', '" + imageUri + "');");}
         } else if (type.startsWith("video/")) {
                 Uri videoUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
-    			if (videoUri != null) {loadUrl("javascript:handleNewIntent('singlevideo', '" + videoUri + "');");}
+    			if (videoUri != null) {webView.loadUrl("javascript:handleNewIntent('singlevideo', '" + videoUri + "');");}
         }
     } else if (Intent.ACTION_SEND_MULTIPLE.equals(action) && type != null) {
         if (type.startsWith("image/")) {
                 ArrayList<Uri> imageUris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
-			    if (imageUris != null) {loadUrl("javascript:handleNewIntent('multipleimages', '" + imageUris + "');");}
+			    if (imageUris != null) {webView.loadUrl("javascript:handleNewIntent('multipleimages', '" + imageUris + "');");}
         } else if (type.startsWith("video/")) {
 			    ArrayList<Uri> videoUris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
-			    if (videoUris != null) {loadUrl("javascript:handleNewIntent('multiplevideos', '" + videoUris + "');");}
+			    if (videoUris != null) {webView.loadUrl("javascript:handleNewIntent('multiplevideos', '" + videoUris + "');");}
         }
     } else {
         // Handle other intents, such as being started from the home screen
