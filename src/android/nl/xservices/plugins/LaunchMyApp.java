@@ -6,6 +6,7 @@ import org.apache.cordova.CordovaActivity;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -38,14 +39,14 @@ public class LaunchMyApp extends CordovaPlugin {
     } else if (ACTION_CHECKINTENT.equalsIgnoreCase(action)) {
       final Intent intent = ((CordovaActivity) this.webView.getContext()).getIntent();
       final String intentString = intent.getDataString();
-      String action = intent.getAction(); String type = intent.getType();
+      String intentaction = intent.getAction(); String type = intent.getType();
        JSONObject parameter = new JSONObject();
        String hasintentdata = "no";
-          if (Intent.ACTION_SEND.equals(action) && type != null) {
+          if (Intent.ACTION_SEND.equals(intentaction) && type != null) {
         if ("text/plain".equals(type)) {
             	String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
 		    	if (sharedText != null) {hasintentdata = "yes";
-		    		parameter.put("itype", "sharedtext");parameter.put("val", sharedtext); 	//webView.loadUrl("javascript:handleNewIntent('sharedtext', '" + sharedText + "');");
+		    		parameter.put("itype", "sharedtext");parameter.put("val", sharedText); 	//webView.loadUrl("javascript:handleNewIntent('sharedtext', '" + sharedText + "');");
 		    		}
         } else if (type.startsWith("image/")) {
                  Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
@@ -58,7 +59,7 @@ public class LaunchMyApp extends CordovaPlugin {
     				parameter.put("itype", "videUri");parameter.put("val", videoUri); //webView.loadUrl("javascript:handleNewIntent('singlevideo', '" + videoUri + "');");
     			}
         }
-    } else if (Intent.ACTION_SEND_MULTIPLE.equals(action) && type != null) {
+    } else if (Intent.ACTION_SEND_MULTIPLE.equals(intentaction) && type != null) {
         if (type.startsWith("image/")) {
                 ArrayList<Uri> imageUris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
 			    if (imageUris != null) {hasintentdata = "yes";
