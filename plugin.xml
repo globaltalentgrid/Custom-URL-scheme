@@ -2,7 +2,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
         id="cordova.plugin.sharewithphonegap.gtg"
-        version="0.0.13">
+        version="0.0.14">
 
   <name>Share With Phonegap</name>
 
@@ -20,6 +20,32 @@
     <engine name="cordova" version=">=3.0.0"/>
   </engines>
 
+ <!-- ios -->
+  <platform name="ios">
+          <config-file target="*-Info.plist">
+    <key>NSExtension</key>
+    <dict>
+        <key>NSExtensionMainStoryboard</key>
+        <string>MainInterface</string>
+        <key>NSExtensionPointIdentifier</key>
+        <string>com.apple.share-services</string>
+    </dict>
+    <key>NSExtensionAttributes</key>
+    <dict>
+        <key>NSExtensionActivationRule</key>
+        <dict>
+            <key>NSExtensionActivationSupportsImageWithMaxCount</key>
+            <integer>7</integer>
+            <key>NSExtensionActivationSupportsMovieWithMaxCount</key>
+            <integer>7</integer>
+            <key>NSExtensionActivationSupportsWebURLWithMaxCount</key>
+            <integer>7</integer>
+            <key>NSExtensionActivationSupportsText</key>
+            <integer>7</integer>
+        </dict>
+    </dict>
+          </config-file>              
+    </platform>
 
   <!-- android -->
   <platform name="android">
